@@ -14,7 +14,7 @@ def recup(fichier) :     # Fonction de récuparation des données du fichier
     stockage_info = {
         "axiome": None,
         "angle": None,
-        "taille": None,
+        "taille": 10,
         "regles": {},
         "niveau": None
     }  # Espace de stockage des informatins (axiome, règles ect...)
@@ -65,22 +65,38 @@ def creaniv (x,niveau,regles) :  #applique le niveau
     return x
 
 
-def transpo (axiodef,angle,taille) : #création du programme pour afficher le l-system
-    result = ""
-    for string in axiodef :
-        if string == "a" :
-            result += "pd();fd({});\n".format(taille)
-        elif string == "b" :
-            result += "pu();fd({});\n".format(taille)
-        elif string == "+" :
-            result += "right({});\n".format(angle)
-        elif string == "-" :
-            result += "left({});\n".format(angle)
-        elif string == "*" :
-            result += "right(180)"
-        elif string == "[" :
-            result += " "
-    return result
+def transpo (action,angle,taille) : #création du programme pour afficher le l-system
+    result = """
+from turtle import *
+color('black')
+etats = []
+"""
+    #etats --> [(pos, angle), (pos1, angle1), ....]       ((x, y), angle)
+    for charac in action :
+            if charac == "a" :
+                result += "pd();fd({});\n".format(taille)
+            elif charac == "b" :
+                result += "pu();fd({});\n".format(taille)
+            elif charac == "+" :
+                result += "right({});\n".format(angle)
+            elif charac == "-" :
+                result += "left({});\n".format(angle)
+            elif charac == "*" :
+                result += "right(180)"
+            elif charac == "[" :
+                result += "etats.append((xcor(),ycor(), heading()))\n"
+            elif charac == "]":
+                result += "x,y,angle = etats.pop()\n"
+                result += "pu();goto(x,y);setheading(angle);pd()\n"
+    result += "exitonclick()"
+    return result.strip()
+
+
+    """ Penser à mettre une valeur de base pour l'angle
+    Bug : TypeError: 'Vec2D' object is not callable #ligne etats.app
+    j'ai mis xcor() ycor() a la place de pos() je pense que cela à résolu le pb #à verifier
+     """
+
 
 
 
@@ -111,4 +127,4 @@ if __name__ == "__main__" :
 
         #Création et sortie du prog final
         prog = transpo (axiofinal,ang,tail)
-        print ('from turtle import * \ncolor("black")\n',prog ,sep='')
+        print (transpo(axiofinal,ang,tail))
