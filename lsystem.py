@@ -46,4 +46,3 @@ if __name__ == "__main__" :
 
 
 print (stockage_info)
-yerreyz
