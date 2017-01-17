@@ -18,6 +18,7 @@ if __name__ == "__main__" :
         stockage_info= {}  #Espace de stockage des informatins (axiome, règles ect...)
 
         def Recup (x) :     #Fonction de récuparation des données du fichier
+        règle == True
             for line in x :
                 if line.startswith("axiome"):
                     line = line.split("=")
@@ -31,6 +32,12 @@ if __name__ == "__main__" :
                 elif line.startswith("niveau"):
                     line = line.split("=")
                     stockage_info["Niveau"]= line[1]
+                elif line.startswith("regle") == True :
+                    line = line.split("=")
+
+
+
+
 
 
 
@@ -38,8 +45,5 @@ if __name__ == "__main__" :
         Recup(t) #application sur le fichier donné
 
 
-        #print (stockage_info["Axiome"])
-        #print (stockage_info["Angle"])
-        #print (stockage_info["Taille"])
-        #print (stockage_info["Niveau"])
-        print (stockage_info)
+print (stockage_info)
+yerreyz
