@@ -1,7 +1,7 @@
-regle  =
-	"a = a---aa"
-	"b = a------aab"
-niveau = 2
-axiome = "kfezafezafa"
-taille= 50
+axiome = "-a-b"
+regles =
+"a=a---a"
+"b=b++a"
 angle = 60
+taille = 10
+niveau = 2
