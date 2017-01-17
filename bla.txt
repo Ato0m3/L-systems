@@ -1,7 +1,4 @@
-axiome = "-a-b"
-regles =
-"a=a---a"
-"b=b++a"
-angle = 60
-taille = 10
-niveau = 2
+axiome = "-a++a++a" 
+regle = "a=a-a++a-a" 
+angle = 60 
+niveau = 1

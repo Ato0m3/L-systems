@@ -9,23 +9,8 @@
         -Sort un programme permettant de dessiner le L-systems;
                                             """
 
-"""
-regles = {
-    "A": "B",
-    "B": "C"
-}
-axiom = "AB"
-result = ""
-for letter in axiom:
-    if letter in regles:
-        result += regles[letter]
-    else:
-        result += letter
-print(result)
-"""
 
-
-def recup(x) :     # Fonction de récuparation des données du fichier
+def recup(fichier) :     # Fonction de récuparation des données du fichier
     stockage_info = {
         "axiome": None,
         "angle": None,
@@ -34,7 +19,7 @@ def recup(x) :     # Fonction de récuparation des données du fichier
         "niveau": None
     }  # Espace de stockage des informatins (axiome, règles ect...)
     regle = False
-    for line in x:
+    for line in fichier:
         if line.startswith("axiome"):
             regle = False
             axiome = line.split("=")[1].replace("\"", "").strip()
@@ -62,22 +47,40 @@ def recup(x) :     # Fonction de récuparation des données du fichier
     return stockage_info
 
 
-def crea (a,r) : #créa de l'axiome pour un niveau
+def crea (axiome,regles) : #créa de l'axiome pour un niveau
 
     result = ""
-    for letter in a:
-        if letter in r:
-            result += r[letter]
+    for letter in axiome:
+        if letter in regles:
+            result += regles[letter]
         else :
             result += letter
     return result
 
 
-def creaniv (x,n,r) :
+def creaniv (x,niveau,regles) :  #applique le niveau
     result = ""
-    for level in range (1 ,n):
-        x = crea(x,r)
+    for level in range (1 ,niveau):
+        x = crea(x,regles)
     return x
+
+
+def transpo (axiodef,angle,taille) : #création du programme pour afficher le l-system
+    result = ""
+    for string in axiodef :
+        if string == "a" :
+            result += "pd();fd({});\n".format(taille)
+        elif string == "b" :
+            result += "pu();fd({});\n".format(taille)
+        elif string == "+" :
+            result += "right({});\n".format(angle)
+        elif string == "-" :
+            result += "left({});\n".format(angle)
+        elif string == "*" :
+            result += "right(180)"
+        elif string == "[" :
+            result += " "
+    return result
 
 
 
@@ -94,10 +97,18 @@ if __name__ == "__main__" :
         infos = recup(t) #application sur le fichier donné
         #print(infos)
 
-         #def création de l'axiome
+        #def variables
         axio = infos["axiome"]
         reg = infos["regles"]
-        niv= infos["niveau"]
+        niv = infos["niveau"]
+        ang = infos["angle"]
+        tail = infos["taille"]
+
+        #def création de l'axiome
         axiorendu = crea(axio,reg)
         axiofinal = creaniv(axiorendu,niv,reg)
-        print (axiofinal)
+        #print (axiofinal)
+
+        #Création et sortie du prog final
+        prog = transpo (axiofinal,ang,tail)
+        print ('from turtle import * \ncolor("black")\n',prog ,sep='')
