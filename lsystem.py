@@ -82,7 +82,7 @@ etats = []
             elif charac == "-" :
                 result += "left({});\n".format(angle)
             elif charac == "*" :
-                result += "right(180)"
+                result += "right(180)\n"
             elif charac == "[" :
                 result += "etats.append((xcor(),ycor(), heading()))\n"
             elif charac == "]":
@@ -127,4 +127,9 @@ if __name__ == "__main__" :
 
         #Création et sortie du prog final
         prog = transpo (axiofinal,ang,tail)
-        print (transpo(axiofinal,ang,tail))
+        print (prog)
+
+    
+    #mon_fichier = open("test.py", "w") # Argh j'ai tout écrasé !
+    #mon_fichier.write(prog)
+    #mon_fichier.close()
