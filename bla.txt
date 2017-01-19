@@ -2,4 +2,3 @@ axiome = "a-a-a-a"
 regle =
   "a=a+a*a+a+aa*aa+a+a*a+a"
 angle = 90
-niveau= 3

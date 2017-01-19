@@ -1,6 +1,6 @@
 
 #!/usr/bin/env python3
-
+import sys
 """                        000000000000000000000
                         000_Programme L-systems_000
                            000000000000000000000
@@ -92,10 +92,24 @@ etats = []
     return result.strip()
 
 
-    """ Penser à mettre une valeur de base pour l'angle
-    Bug : TypeError: 'Vec2D' object is not callable #ligne etats.app
-    j'ai mis xcor() ycor() a la place de pos() je pense que cela à résolu le pb #à verifier
-     """
+def verif (stockage_info,axio,reg,angle,tail,niveau) :
+    if axio == None :
+        print ("Erreur au niveau de l'axiome : il est obligatoire d'avoir un axiome")
+        return exit()
+    else :
+        if len(axio) > 1 :
+            print ("Erreur au niveau de l'axiome : il est obligatoire d'avoir uniquement un seul axiome")
+            return exit()
+
+        elif angle == None :
+            print ("Erreur au niveau de l'angle : il est obligatoire d'avoir un angle")
+            return exit()
+
+        elif niveau == None :
+            print ("Erreur au niveau du niveau :il est obligatoire d'avoir un niveau")
+            return exit
+        else :
+            return None
 
 
 
@@ -120,6 +134,8 @@ if __name__ == "__main__" :
         ang = infos["angle"]
         tail = infos["taille"]
 
+        verif(infos,axio,reg,ang,tail,niv)
+
         #def création de l'axiome
         axiorendu = crea(axio,reg)
         axiofinal = creaniv(axiorendu,niv,reg)
@@ -129,7 +145,7 @@ if __name__ == "__main__" :
         prog = transpo (axiofinal,ang,tail)
         print (prog)
 
-    
+
     #mon_fichier = open("test.py", "w") # Argh j'ai tout écrasé !
     #mon_fichier.write(prog)
     #mon_fichier.close()
